@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <img src="../../../assets/img/logo-mini.png" height="50px" />
+    <ion-buttons slot="end">
+    <ion-icon name="notifications" [routerLink]="['/auction-home/notifications']"  class="padding-right" slot="start"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="titlename">
+     <p style="font-size: x-large;">Welcome, <span style="color: rgba(0,94,120,1); font-weight: bolder;">{{name}}</span></p>
+     <ion-row style="padding: 10px;">
+       <ion-col class="headcolor" style="text-align: start;font-size: x-large;font-weight: bolder;">Dashboard</ion-col>
+       <ion-col class="headcolor" style="text-align: end;">
+        <ion-button (click)="create()" color="danger">Create
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-col>
+     </ion-row>
+  </div>
+
+  <ion-card>
+    <ion-card-header style="background-color: gray;">
+      <ion-card-title style="color: white;text-align: center;">
+        My Auction
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div style="padding: 20px;">
+        <h1 style="color: black;font-weight: bolder;">Total Auction</h1>
+        <p>Open: 12</p>
+        <p>Closed: 10</p>
+        <p>Completed: 4</p>
+        <p style="font-size: 60px;text-align: center;font-weight: bolder;">{{datalength1}}</p>
+      </div>
+      <ion-button expand="block" (click)="myAuction()">View All</ion-button>
+    </ion-card-content> 
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header style="background-color: gray;">
+      <ion-card-title style="color: white;text-align: center;">
+      All Available Auction
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div style="padding: 20px;">
+        <h1 style="color: black;font-weight: bolder;">Total Available Auction</h1>
+        <p style="font-size: 60px;text-align: center;font-weight: bolder;">{{datalength}}</p>
+      </div>
+      <ion-button expand="block" (click)="allauction()">View All</ion-button>
+    </ion-card-content> 
+  </ion-card>
+</ion-content>

@@ -1,0 +1,93 @@
+<ion-header class="ion-no-border">
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="home"></ion-back-button>
+  </ion-buttons>
+</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="header">
+    <h1>Create your account</h1>
+    <!-- <img src="assets/logo.webp" /> -->
+  </div>
+ 
+  <ion-list id="form">
+  <form [formGroup]="signupForm" method="post" (ngSubmit)="insertUser()">
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Name*</ion-label> 
+        <ion-input type="text" formControlName="name" required></ion-input>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.name.errors?.pattern">
+        Name is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.name.errors?.required">
+        Name is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+        Name should be min 2 chars long.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Mobile*</ion-label>
+        <ion-input type="number" formControlName="mobile" placeholder="Enter mobile Number" required></ion-input>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.mobile.errors?.required">
+        Mobile number is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.mobile.errors?.pattern">
+        Mobile Number Should be Min 10 Numbers.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating"> Email* </ion-label>
+        <ion-input type="text" formControlName="email" required></ion-input>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.email.errors?.required">
+        Email is required.
+      </ion-label > 
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+        Please provide valid email id.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Password*</ion-label>
+        <!-- <ion-input type="password" formControlName="password" required></ion-input> -->
+        <ion-input formControlName="password" [type]="passwordType" clearOnEdit="false"></ion-input>
+        <ion-icon  [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()' slot="end"></ion-icon>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.password.errors?.required">
+        Password is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.password.errors?.pattern">
+        Please provide valid password.
+      </ion-label ><br/>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
+        Password should be min 8 chars long.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Confirm Password*</ion-label>
+        <ion-input type="password" formControlName="confPass" required></ion-input>
+      </ion-item>
+      <ion-label class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl.confPass.errors?.required">
+        Confirm Password is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="passval" style="color: red;font-size: 12px;">
+        Password and Confirm Password not matched. 
+      </ion-label >
+    </div>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-list>
+</ion-content>

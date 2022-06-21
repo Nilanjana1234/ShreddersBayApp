@@ -1,0 +1,43 @@
+
+<ion-content>
+  <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+    <div class="ion-text-center"><img alt="logo" height="150" style="margin-top: 2%;"  src="../../assets/img/logo.webp" >
+   </div>
+   <h2 class="ion-text-center">Welcome To ShreddersBay</h2>
+
+  <div class="ion-padding">
+    <ion-button expand="block" shape="round" class="fb" (click)="fbLogin()">
+      <ion-icon name="logo-facebook"></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+      Continue with Facebook
+    </ion-button>
+  </div> 
+  <div class="ion-padding">
+      <ion-button expand="block" shape="round" class="google" (click)="googleSignIn(role)">
+      <ion-icon name="logo-google" color="danger" ></ion-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      Continue with Google
+    </ion-button>
+  </div>
+  <div class="ion-padding">
+  <ion-button expand="block" class="logins" (click) ="login(role)">Login</ion-button>
+</div>
+<div class="ion-padding">
+  <ion-button expand="block" shape="round" (click) ="loginotp(role)">
+    <ion-icon name="call" color="white" slot="end"></ion-icon>
+    Login By OTP</ion-button>
+</div>
+
+</ion-content> 
+<div class="ion-padding ">
+  <ion-button expand="block" shape="round" style="color: #148E98;" fill="outline" routerLink="/frontend">
+    <ion-icon name="person" color="white" slot="end"></ion-icon>
+    Change User</ion-button>
+</div>
+
+<ion-footer>
+<div class="ion-text-center" style="background-color: black;color:white;padding:5px">
+  Don't have an account?<br/>
+  <ion-button (click) ="signup(role)">Sign Up</ion-button>
+</div>
+</ion-footer>

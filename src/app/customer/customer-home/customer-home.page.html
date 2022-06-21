@@ -1,0 +1,9 @@
+<ion-tabs slot="bottom">
+  <ion-tab-bar>
+    <ion-tab-button class="favorites-button" tab="{{t.url}}" *ngFor="let t of tabs;" >
+      <ion-icon name="{{t.icon}}" size="large"></ion-icon>
+      <ion-label>{{t.title}}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+

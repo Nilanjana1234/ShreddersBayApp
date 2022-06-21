@@ -1,0 +1,90 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-grid>
+  <ion-row class="ion-margin ion-padding">
+  <img src="assets/register.svg" width="80%" style="margin-left: auto;margin-right: auto;" />
+
+  
+</ion-row>
+<ion-row style="padding-left: 2%;padding-right: 2%;">
+  <ion-grid>
+  <ion-row ><ion-col><h2 style="text-align: center;">Login By OTP</h2></ion-col></ion-row>
+  
+    <ion-row>
+      <ion-grid >
+      
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col><ion-label>Contact No</ion-label></ion-col>
+      </ion-row>
+      
+      <form [formGroup]="otpForm" (ngSubmit)="getOtpData()">
+      <ion-row >
+        <!-- <div class="form-group">
+          <ion-list lines="full">
+        <ion-label floating style="margin-top: auto;margin-bottom: auto;">
+          <ion-icon  name="call" class="text-primary" ></ion-icon>
+        </ion-label>
+          <ion-input type="number" formControlName="numb" placeholder="Enter your Contact No"></ion-input>
+          </ion-list>
+          <label class="error ion-padding" *ngIf="isSubmitted && errorControl.numb.errors?.required">
+            Number is required.
+          </label>
+          <label class="error ion-padding" *ngIf="isSubmitted && errorControl.numb.errors?.pattern">
+            Minimum 10 digit Number.
+          </label>
+        </div> -->
+        <ion-col>
+        <div class="form-group">
+          <ion-item lines="full">
+            <ion-label position="floating">Mobile*</ion-label>
+            <ion-input type="number" formControlName="numb" placeholder="Enter mobile Number" required></ion-input>
+          </ion-item>
+          <ion-label  class="error ion-padding" style="color: red;"  *ngIf="isSubmitted && errorControl.numb.errors?.required">
+            Mobile number is required.
+          </ion-label >
+          <ion-label  class="error ion-padding" style="color: red;"  *ngIf="isSubmitted && errorControl.numb.errors?.pattern">
+            Mobile Number Should be 10 digit.
+          </ion-label >
+        </div>
+        </ion-col>
+        </ion-row>
+      <ion-row style="margin-top: 10px;">
+        
+        <ion-col>
+          <ion-button type="submit" shape="round" expand="block">Send OTP</ion-button>
+        </ion-col>
+        </ion-row>
+      </form>
+        <ion-row>
+       
+          <ion-col style="text-align: center;">
+            Have already an account? <a style="text-decoration: none;color: #005E78;cursor: pointer;" (click)="login()">Login here</a>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <div style="color: red; padding-top: 0.2rem" *ngIf="errorMsg">
+            <p >{{errorMsg}}</p>
+         </div>
+
+        </ion-row>
+     
+
+    </ion-grid>
+      
+    
+      
+
+    </ion-row>
+  </ion-grid>
+  
+</ion-row>
+
+</ion-grid>

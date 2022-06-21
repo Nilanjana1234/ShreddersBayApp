@@ -1,0 +1,83 @@
+
+<ion-content>
+  <div style="display: flex;">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="font-size: x-large;font-weight:bold">Create Auction</ion-title>
+  </div>
+
+  <img src="../../../assets/img/cart.jpg" height="150px;" width="100%"/>
+  <form [formGroup]="submitForm" (ngSubmit)="submitForms()" class="ion-padding ion-text-center">
+    <ion-item lines="full" (ionChange)="checkValue($event)">
+      <ion-label>Metal Type</ion-label>
+      <ion-select formControlName="prodname">
+        <ion-select-option *ngFor="let list of data" value="{{list.p_id}}">
+          {{ list.p_name }}
+        </ion-select-option>
+      </ion-select> 
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.prodname.errors?.required" style="color: red;font-size: 12px;">
+      *Metal Type is required.
+     </label>
+    <ion-item lines="full">
+      <ion-label>Sub Metal Type</ion-label>
+      <ion-select formControlName="subprodname">
+        <ion-select-option *ngIf="subProduct">{{subProduct}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.subprodname.errors?.required" style="color: red;font-size: 12px;">
+      *Sub Metal Type is required.
+     </label>
+    <ion-list> 
+      <ion-radio-group>
+        <ion-item *ngIf="!subProduct">
+          <ion-label>Weight</ion-label>
+          <ion-radio slot="start" value="female" ></ion-radio>
+        </ion-item>
+
+        <ion-item *ngIf="subProduct">
+          <ion-label>Weight</ion-label>
+          <ion-radio slot="start" value="female" class="radio-checked"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      <ion-item lines="full">
+        <ion-input type="number" formControlName="weight" placeholder="Enter Weight In Kg" required></ion-input>
+       
+      </ion-item>
+      <label class="error ion-padding" *ngIf="isSubmitted && errorControl.weight.errors?.required" style="color: red;font-size: 12px;">
+        *Weight is required.
+       </label>
+      <ion-label>Price: {{price}} per Kg</ion-label>
+      <ion-item lines="full">
+        <ion-label position="fix">Upload File</ion-label>
+        <ion-input
+          type="file" 
+          required
+          (change)="fileChange($event)" accept="image/*" id="del" formControlName="file"
+        ></ion-input>
+        <ion-icon color="danger" *ngIf="filedel" (click)="delfile($event)" name="trash-outline" style="cursor: pointer;"></ion-icon>
+      </ion-item>
+      <label class="error ion-padding" *ngIf="isSubmitted && errorControl.file.errors?.required" style="color: red;font-size: 12px;">
+        *Image is required.
+       </label>
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="captureImage()">
+          <ion-icon md="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      
+      <img *ngIf="filedel" [src]="img1" />
+     <img *ngIf="filedel" [src]="clickedImage" />
+      
+    </ion-list>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="primary" shape="round" expand="block"
+          >Add</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "shreddersbay",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

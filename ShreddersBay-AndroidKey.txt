@@ -1,0 +1,8 @@
+passenger package name: com.fil.shredders
+
+keyStore file name : google.keystore
+keyAlias - key0
+keyPassword - android
+
+SHA1: 100e8e36eed7f88ad8fb59b0e895e40bc560b050
+

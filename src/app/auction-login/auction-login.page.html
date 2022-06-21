@@ -1,0 +1,154 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: #005E78;" defaultHref="frontend"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div *ngIf="toggle">
+  <h1 style="text-align: center;">Login to Create Auction</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label floating>
+          <ion-icon name="mail" class="text-primary"></ion-icon>
+
+        </ion-label> 
+        <ion-input type="text"  placeholder="Enter Your Email.." formControlName="email" required></ion-input>
+      </ion-item>
+      <label class="error ion-padding" style="color: red;" *ngIf="isSubmitted1 && errorControl.email.errors?.required">
+        Email is required.
+      </label>
+      <label class="error ion-padding" style="color: red;" *ngIf="isSubmitted1 && errorControl.email.errors?.pattern">
+        Please provide valid email id.
+      </label>
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label floating>
+          <ion-icon name="key" class="text-primary"></ion-icon>
+        </ion-label>
+        <!-- <ion-input type="password" placeholder="Enter Your Password.." formControlName="password" required></ion-input> -->
+        <ion-input formControlName="password" placeholder="Enter Your Password.." [type]="passwordType" clearOnEdit="false"></ion-input>
+        <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+      </ion-item>
+      <label class="error ion-padding" style="color: red;" *ngIf="isSubmitted1 && errorControl.password.errors?.required">
+        Password is required.
+      </label>
+    </div>
+    <ion-row class="ion-margin ">
+      <ion-col>
+        <ion-button type="submit" shape="round" color="primary" expand="block">Login</ion-button>
+      </ion-col>    
+    </ion-row>   
+    <p style="text-align: center;font-size: larger;">If not Registerd,<a  style="cursor: pointer;color: #005E78;font-weight: bolder;" (click)="toggleForm()">Create Account</a></p>
+  </form>
+
+<p style="text-align: center;"><a  style="cursor: pointer;color: #005E78;" (click)="forgetPassword()">Forgotten Password?</a></p>
+<ion-row>
+  <div style="color: red; padding-top: 0.2rem" *ngIf="errorMsg">
+     <p >{{errorMsg}}</p>
+  </div>
+  <div style="color: green; padding-top: 0.2rem" *ngIf="successMsg">
+    {{successMsg}}
+  </div>
+ </ion-row>
+ </div>
+
+<!-- SignUp Form -->
+
+ <div *ngIf="!toggle">
+  <h1 style="text-align: center;">Sign Up to Create Auction</h1>
+  <form [formGroup]="signupForm" (ngSubmit)="signupSubmitForm()">
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Name*</ion-label> 
+        <ion-input type="text" formControlName="name" required></ion-input>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.name.errors?.pattern">
+        Name is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.name.errors?.required">
+        Name is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.name.errors?.minlength">
+        Name should be min 2 chars long.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Mobile*</ion-label>
+        <ion-input type="number" formControlName="mobile" placeholder="Enter mobile Number" required></ion-input>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.mobile.errors?.required">
+        Mobile number is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.mobile.errors?.pattern">
+        Mobile Number Should be Min 10 Numbers.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating"> Email* </ion-label>
+        <ion-input type="text" formControlName="email" required></ion-input>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.email.errors?.required">
+        Email is required.
+      </ion-label > 
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.email.errors?.pattern">
+        Please provide valid email id.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Password*</ion-label>
+        <!-- <ion-input type="password" formControlName="password" required></ion-input> -->
+        <ion-input formControlName="password" [type]="passwordType" clearOnEdit="false"></ion-input>
+        <ion-icon  [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()' slot="end"></ion-icon>
+      </ion-item>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.password.errors?.required">
+        Password is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.password.errors?.pattern">
+        Please provide valid password.
+      </ion-label ><br/>
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.password.errors?.minlength">
+        Password should be min 8 chars long.
+      </ion-label >
+    </div>
+    <div class="form-group">
+      <ion-item lines="full">
+        <ion-label position="floating">Confirm Password*</ion-label>
+        <ion-input type="password" formControlName="confPass" required></ion-input>
+      </ion-item>
+      <ion-label class="error ion-padding" style="color: red;" *ngIf="isSubmitted && errorControl1.confPass.errors?.required">
+        Confirm Password is required.
+      </ion-label >
+      <ion-label  class="error ion-padding" style="color: red;" *ngIf="passval" style="color: red;font-size: 14px;">
+        Password and Confirm Password not matched. 
+      </ion-label >
+    </div>
+
+    <ion-row class="ion-margin ">
+      <ion-col>
+        <ion-button type="submit" shape="round" color="primary" expand="block">Sign Up</ion-button>
+      </ion-col>    
+    </ion-row>   
+    <p style="text-align: center;font-size: larger;">If Registerd,<a  style="cursor: pointer;color: #005E78;font-weight: bolder;" (click)="toggleForm()">Login Here</a></p>
+  </form>
+
+<p style="text-align: center;"><a  style="cursor: pointer;color: #005E78;" (click)="forgetPassword()">Forgotten Password?</a></p>
+<ion-row>
+  <div style="color: red; padding-top: 0.2rem" *ngIf="errorMsg">
+     <p >{{errorMsg}}</p>
+  </div>
+  <div style="color: green; padding-top: 0.2rem" *ngIf="successMsg">
+    {{successMsg}}
+  </div>
+ </ion-row>
+   
+ </div>
+</ion-content>

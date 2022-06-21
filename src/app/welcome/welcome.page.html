@@ -1,0 +1,53 @@
+<ion-content >
+  <ion-slides pager="true" [options]="slideOpts">
+    
+    <ion-slide>
+      <div>
+        <img src="../../assets/welcome.png">
+        <ion-row>
+          <ion-col>
+            <p>Searching The Nearest</p>
+            <p>Domestic Scrap</p>
+            <p> Gone Easy ...</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          
+          <ion-col> <span>with</span> Shreddersbay App</ion-col>
+          
+        </ion-row>
+        <p>Version 1.1.3</p>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div style="padding: 10%;">
+        <ion-card>
+          <ion-card-header style="border-bottom: 1px solid rgb(55,74,190);">
+            <ion-card-title style="color: rgb(55,74,190);font-weight: bolder;font-size: x-large;">Raise a Request</ion-card-title>
+          </ion-card-header>
+          <ion-card-content style="padding: 10%">
+           <p style="text-align: justify;"> Just select a scrap, schedule your date and place your order to get rid of all your unwanted scrap items.</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div>
+        <ion-row>
+          <ion-col>
+           
+            <div> <img style="padding: 10%;" src="../../assets/logo.webp"></div>  
+            <h1 style="font-size: xx-large;">Ready to Start</h1>   
+            <div style="padding-top: 10%;"><button (click)="front()" class="bubbly-button">Continue <ion-icon name="arrow-forward-outline"></ion-icon></button></div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+
+<ion-row style="padding: 10px;color: rgba(0,94,120,1)">
+  <ion-col [routerLink]="['/frontend']">SKIP</ion-col>
+
+</ion-row>

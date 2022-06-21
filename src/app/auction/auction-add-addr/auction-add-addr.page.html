@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!addrs_id">Add Address</ion-title>
+    <ion-title *ngIf="addrs_id">Update Address</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+  <form [formGroup]="submitForm" (ngSubmit)="submitForms()" class="ion-padding ion-text-center">
+    <ion-item lines="full" (ionChange)="getState($event)">
+      <ion-label>Select Country</ion-label>
+      <ion-select formControlName="country_id">
+        <ion-select-option *ngFor="let list of country"  value="{{list.country_id}}">
+          {{ list.country_name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.country_id.errors?.required" style="font-size: 12px;">
+      *Country is required.
+      </label>
+   
+    <ion-item lines="full" (ionChange)="getCity($event)">
+      <ion-label>Select State</ion-label>
+      <ion-select formControlName="state_id">
+        <ion-select-option *ngFor="let list of state" value="{{list.state_id}}">
+          {{ list.state_name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.state_id.errors?.required" style="font-size: 12px;">
+      *State is required.
+      </label>
+  
+    <ion-item lines="full" (ionChange)="getArea($event)">
+      <ion-label>Select City</ion-label>
+      <ion-select formControlName="city_id">
+        <ion-select-option *ngFor="let list of city" value="{{list.city_id}}">
+          {{ list.city_name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.city_id.errors?.required" style="font-size: 12px;">
+      *City is required.
+      </label>
+   
+    <ion-item lines="full" (ionChange)="valueChange($event)">
+      <ion-label>Select Area</ion-label>
+      <ion-select formControlName="area_id">
+        <ion-select-option *ngFor="let list of area" value="{{list.area_id}}">
+          {{ list.area_name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.area_id.errors?.required" style="font-size: 12px;">
+      *Area is required.
+      </label>
+
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-textarea formControlName="address" value="{{address}}"></ion-textarea>
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.address.errors?.required" style="font-size: 12px;">
+     *Address is required.
+     </label>
+    <ion-item>
+      <ion-label position="floating">Landmark</ion-label>
+      <ion-input type="text" formControlName="landmark"></ion-input>
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.landmark.errors?.required" style="font-size: 12px;">
+      *Landmark is required.
+     </label>
+    <ion-item>
+      <ion-label position="floating">Pin Code</ion-label>
+      <ion-input type="number" formControlName="pincode"></ion-input> 
+    </ion-item>
+    <label class="error ion-padding" *ngIf="isSubmitted && errorControl.pincode.errors?.required" style="font-size: 12px;">
+      *Pin Code is required.
+    </label>
+    <ion-row>
+      <ion-col>
+        <ion-button *ngIf="!addrs_id" type="submit" color="primary" shape="round" expand="block">Add Address</ion-button>
+        <ion-button *ngIf="addrs_id" type="submit" color="primary" shape="round" expand="block">Update Address</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

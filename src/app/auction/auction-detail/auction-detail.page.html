@@ -1,0 +1,169 @@
+<ion-content>
+  <div style="display: flex;">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="font-weight:bold;font-size: xx-large;">Auction Details</ion-title>
+
+ 
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8">
+        <h1 style="color: black;font-size: x-large;">  {{pname}} - {{ (anamelength>8)? (aname | slice:0:8)+'..':(aname) }}</h1>
+      </ion-col>
+      <ion-col size="4" style="text-align: end;margin-top: auto;margin-bottom: auto;">
+        <ion-chip color="primary" outline>
+          <ion-label>
+            Invite
+          </ion-label>
+          <ion-icon name="share-social"></ion-icon>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <div style="padding: 3%;padding-top: 0;">
+    <ion-grid>
+      <ion-row style="border-bottom: 1px solid gray;padding: 0;">
+        <ion-col size="3" class="headcolor" (click)="change('bid')" [style.color]="show=='bid'? 'green' : 'black'">
+          Bidding</ion-col>
+        <ion-col size="3" class="headcolor" (click)="change('details')"
+          [style.color]="show=='details'? 'green' : 'black'">Details</ion-col>
+        <ion-col size="2" class="headcolor" (click)="change('chat')" [style.color]="show=='chat'? 'green' : 'black'">
+          Chat</ion-col>
+        <ion-col size="4" class="headcolor">
+          <ion-button (click)="create()" color="danger">Create
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row style="padding: 10px;padding-top: 20px;">
+        <ion-col size="3" style="margin-top: auto;margin-bottom: auto;text-align: center;">Closes In:</ion-col>
+        <ion-col size="9">
+          <ion-row style="text-align: center;font-size: larger;font-weight: bolder;">
+            <ion-col size="2" id="days" style="padding: 0;"></ion-col>
+            <ion-col size="1" style="padding: 0;">|</ion-col>
+            <ion-col size="2" id="hours" style="padding: 0;"></ion-col>
+            <ion-col size="1" style="padding: 0;">|</ion-col>
+            <ion-col size="2" id="mins" style="padding: 0;"></ion-col>
+            <ion-col size="1" style="padding: 0;">|</ion-col>
+            <ion-col size="2" id="seconds" style="padding: 0;"></ion-col>
+          </ion-row>
+          <ion-row style="text-align: center;font-size: 13px;">
+            <ion-col size="2" style="padding: 0;">Day</ion-col>
+            <ion-col size="1" style="padding: 0;"></ion-col>
+            <ion-col size="2" style="padding: 0;">Hrs</ion-col>
+            <ion-col size="1" style="padding: 0;"></ion-col>
+            <ion-col size="2" style="padding: 0;">Min </ion-col>
+            <ion-col size="1" style="padding: 0;"></ion-col>
+            <ion-col size="2" style="padding: 0;">Sec </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-top: 20px;">
+        <ion-col *ngIf="show=='bid'">
+          <ion-row>
+            <ion-col size="6">Auction Price: {{tp}}</ion-col>
+            <ion-col size="6" style="text-align: end;"><span style="color: gray;">Sort By :</span> Date
+              <ion-icon name="caret-down"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row style="padding: 0;">
+            <ion-col>
+              <ion-card>
+                <ion-card-header color="primary">
+                  <ion-card-title>
+                    Placed Bid : {{datalength}}
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content style="margin-top: 20px;margin-bottom: 10px;">
+                  <div *ngIf="datalength==0" style="text-align: center;">
+                    <div style="font-size: 30px;font-weight: 1000;color:rgb(78, 78, 78)">NO BID YET</div>
+                    <div style="font-size: 14px;font-weight: 300;color: grey;">You are the First to Place Bid</div>
+                  </div>
+                    
+                      <ion-row *ngFor="let chat of data1">
+                        <ion-col style="margin-top: auto;margin-bottom: auto;font-size: larger;font-weight: bold;" size="4">
+                          {{ (chat.name.length>6)? (chat.name | slice:0:6)+'..':(chat.name) }}
+                        </ion-col>
+                        <ion-col  style="margin-top: auto;margin-bottom: auto;" size="4">Rs. {{chat.comment}}</ion-col>
+                        
+                        <ion-col size="4" *ngIf="viewauction=='my-auction'"><ion-button color="success">Accept</ion-button></ion-col>
+                      </ion-row>
+                  
+                </ion-card-content>
+              </ion-card>
+              <div *ngIf="viewauction=='all-auction'" style="padding: 20px;">
+                <ion-label style="font-size: 24px;margin-bottom: 10px;">Place Your Bid</ion-label>
+                <ion-item>
+                  <ion-label style="font-size: 16px;" position="floating">Enter Bid</ion-label>
+                  <ion-input #id type="number"></ion-input>
+                </ion-item>
+                <ion-row>
+                  <ion-col>
+                    <ion-button  fill="clear" expand="block" size="large"
+                    style="background-color:rgb(131, 25, 230);color: white;border-radius: 10px;" (click)="bidValue(id.value)">
+                    PLACE</ion-button>
+                  </ion-col>
+                </ion-row>
+
+               
+                <p *ngIf="mes" style="color: red;font-size: 12px;font-weight: bolder;">{{mes}}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col *ngIf="show=='details'">
+          <ion-card>
+            <ion-card-header color="tertiary">
+              <ion-card-title>
+                Auction Price - {{tp}}
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="5" style="font-weight: bolder;color:rgb(78, 78, 78);">
+                  <p style="padding: 5px">Name</p>       
+                  <p style="padding: 5px">Total Weight</p>
+                  <p style="padding: 5px">Total Price</p>
+                  <p style="padding: 5px">Start Date</p>
+                  <p style="padding: 5px">End Date</p>
+                  <p style="padding: 5px">Address</p>
+                </ion-col>
+                <ion-col size="7">
+                  <p style="padding: 5px">: {{ (anamelength>8)? (aname | slice:0:8)+'..':(aname) }} / {{pname}}</p>
+                  <p style="padding: 5px">: {{tw}}</p>
+                  <p style="padding: 5px">: {{tp}}</p>
+                  <p style="padding: 5px">: {{sdate | slice:0:10}}</p>
+                  <p style="padding: 5px">: {{targetDate | slice:0:10}}</p>
+                  <p style="padding: 5px">: {{addr_name}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row><ion-col style="text-align: center;">
+                <ion-chip color="success"  style="font-weight: 400;font-size:20px;border : 1px solid rgb(90, 207, 90)">
+                  <ion-label>
+                    Total Bid : {{datalength}}
+                  </ion-label>
+                </ion-chip>
+              </ion-col> </ion-row>
+            </ion-card-content>
+
+          </ion-card>
+          <ion-row>
+            <ion-col style="text-align:center">
+              <ion-button (click)="change('bid')" fill="clear" size="large" style="background-color: rgb(131, 25, 230);color: white;border-radius: 10px;font-size: large;">Place Your Bid</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col *ngIf="show=='chat'">chat</ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+
+</ion-content>

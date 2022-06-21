@@ -1,0 +1,70 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Account</ion-title>
+
+    <ion-buttons slot="end" (click)="notifications()">
+      <ion-icon name="notifications" size="large"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content>
+  <div class="ion-text-center">
+    <img *ngIf="!filename" alt="logo" height="150" style="margin-top: 2%;border-radius: 50%;"
+      src="../../assets/img/my-account.jpg" >
+
+      <img *ngIf="filename"  height="150" style="margin-top: 2%;border-radius: 50%;"
+      src="{{filename}}" >
+    
+  </div>
+  <span class="ion-text-center">{{ name }}</span>
+  <span class="ion-text-center">{{ email }}</span>
+  <ion-grid class="ion-padding ">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card (click)="myProfile()">
+          <div class="bgcolor ion-padding">
+            <ion-buttons slot="end" >
+              <ion-title color="light">My Profile</ion-title>
+              <ion-icon  name="arrow-redo-outline"  color="light"  size="large" ></ion-icon>
+            </ion-buttons>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card (click)="myAddr()">
+          <div class="bgcolor ion-padding">
+            <ion-buttons slot="end" >
+              <ion-title color="light">My Address</ion-title>
+              <ion-icon  name="arrow-redo-outline"  color="light"  size="large" ></ion-icon>
+            </ion-buttons>
+          </div>
+
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card (click)="settings()">
+          <div class="bgcolor ion-padding">
+            <ion-buttons slot="end" >
+              <ion-title color="light">Settings</ion-title>
+              <ion-icon  name="arrow-redo-outline"  color="light"  size="large" ></ion-icon>
+            </ion-buttons>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card (click)="changePass()">
+          <div class="bgcolor ion-padding">
+            <ion-buttons slot="end" >
+              <ion-title color="light">Change Password</ion-title>
+              <ion-icon  name="arrow-redo-outline"  color="light"  size="large" ></ion-icon>
+              </ion-buttons>
+            </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

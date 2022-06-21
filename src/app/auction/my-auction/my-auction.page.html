@@ -1,0 +1,366 @@
+<ion-content>
+  <div style="display: flex;">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="font-size: x-large;font-weight:bold">My Auction</ion-title>
+
+
+  </div>
+
+  <div style="padding: 5%;">
+    <ion-grid>
+      <ion-row style="border-bottom: 1px solid gray;padding: 0;">
+        <ion-col size="2" class="headcolor" (click)="change('open')" [style.color]="show=='open'? 'green' : 'black'">
+          Open</ion-col>
+        <ion-col size="2" class="headcolor" (click)="change('close')" [style.color]="show=='close'? 'green' : 'black'">
+          Close</ion-col>
+        <ion-col size="4" class="headcolor" (click)="change('completed')"
+          [style.color]="show=='completed'? 'green' : 'black'">Completed</ion-col>
+        <ion-col size="4" class="headcolor">
+          <ion-button (click)="create()" color="primary">Create
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngIf="show=='open'">
+          <div *ngFor="let current of data;let i=index;"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;margin-top: 30px;">
+            <ion-row>
+              <div style="width: 100%;">
+                <ion-row>
+                  <ion-col style="padding: 0;">
+                    <img *ngIf="current.filename==='undefined'" src="https://i.postimg.cc/cJzFS4ht/product-500x500.jpg"
+                      style="height: 200px;width: 100%;position: absolute;">
+                    <img *ngIf="current.filename" src="http://shreddersbay.com/API/uploads/{{current.filename}}"
+                      style="height: 200px;width: 100%;position: absolute;">
+                    <img *ngIf="!current.filename" src="http://shreddersbay.com/API/uploads/{{current.file}}"
+                      style="height: 200px;width: 100%;position: absolute;">
+                    <div style="height: 200px;width: 100%;position: absolute;background-color: black;opacity: 0.3;">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-icon (click)="confirmClose(current.auction_id)"
+                  style="float: right;color:rgb(214, 31, 31);font-size:xx-large;" name="close"></ion-icon>
+                <div style="padding: 15px;">
+
+                  <ion-row style="margin-top: 10px;">
+                    <ion-col style="color: white;font-size: x-large;">{{current.p_name}} - {{current.name}}</ion-col>
+
+                  </ion-row>
+                  <ion-row style="margin-top: 5px;">
+                    <ion-col style="text-align: center;">
+                      <ion-button fill="default" color="medium">Auction price : Rs {{current.total_price}}</ion-button>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+
+                    <ion-col size="1">
+                      <ion-icon style="color: white;" name="location-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col style="color: white;">{{current.address}}</ion-col>
+                  </ion-row>
+                  <ion-icon (click)="fav(current.auction_id)"
+                    style="float: right;font-size:xx-large;border-radius:50%;color: white;" name="heart-outline">
+                  </ion-icon>
+
+                </div>
+              </div>
+            </ion-row>
+            <ion-row style="margin-top: 30px;margin-bottom: 20px;">
+
+              <ion-grid>
+                <ion-row>
+                  <ion-chip outline color="danger"
+                    style="box-shadow: rgba(241, 9, 9, 0.9) 0px 0px 5px;margin-left: auto;margin-right: auto;">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <ion-label>Closes in : {{Array[i]?.Days}}</ion-label>
+                  </ion-chip>
+                </ion-row>
+                <ion-row style="margin-top: 20px;margin-left: 20px;">
+                  <ion-col size="2">
+                    <ion-icon name="hand-right-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col style="padding-top: 0;" (click)="auction('bid',current.auction_id,'my-auction')">
+                    <ion-row>
+                      <ion-col size="2">
+                        <ion-badge mode="ios" color="tertiary">{{chat[i]?.Chat }}</ion-badge>
+                      </ion-col>
+                      <ion-col>Bids</ion-col>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+                <ion-row style="margin-left: 20px;margin-top: 10px;">
+                  <ion-col size="2">
+                    <ion-icon name="chatbox-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col (click)="auction('chat',current.auction_id,'my-auction')">0 New Messages</ion-col>
+                </ion-row>
+                <ion-row style="margin-left: 20px;margin-top: 10px;">
+                  <ion-col size="2">
+                    <ion-icon name="information-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col (click)="auction('details',current.auction_id,'my-auction')">Auction Details</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-row>
+            <ion-row>
+              <ion-grid class="ion-no-padding">
+                <ion-row style="border-top: 1px solid gray; ">
+                  <ion-col *ngIf="chat[i]?.NoBid=='false' && chat[i]?.OneBid=='false'">
+                    <div style="padding: 10px;">
+                      <p style="text-align: center;">Lowest Bid</p>
+                      <ion-row style="padding-left: 20%;">
+                        <ion-col size="2">
+                          <ion-icon style="color: red;" name="caret-down-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col>{{chat[i]?.Min}}</ion-col>
+                      </ion-row>
+
+                    </div>
+                  </ion-col>
+                  <ion-col *ngIf="chat[i]?.NoBid=='false' && chat[i]?.OneBid=='false'"
+                    style="border-left: 1px solid gray;">
+                    <div style="padding: 10px;">
+                      <p style="text-align: center;">Highest Bid</p>
+                      <ion-row style="padding-left: 20%">
+                        <ion-col size="2">
+                          <ion-icon style="color: green;" name="caret-up-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col>{{chat[i]?.Max}}</ion-col>
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                  <ion-col *ngIf="chat[i]?.NoBid=='true'">
+                    <p style="padding: 10px;text-align: center;font-size: x-large;font-weight: 900;">NO BID YET</p>
+                  </ion-col>
+                  <ion-col *ngIf="!chat[i]?.OneBid && chat[i]?.NoBid=='false'">
+                    {{chat[i]?.OneBid}}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-row>
+
+          </div>
+        </ion-col>
+        <ion-col *ngIf="show=='close'">
+          <div *ngFor="let current1 of data2;let j=index;"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;margin-top: 30px;">
+            <ion-row>
+              <div style="width: 100%;">
+                <ion-row>
+                  <ion-col style="padding: 0;">
+                    <img *ngIf="current1.filename==='undefined'" src="https://i.postimg.cc/cJzFS4ht/product-500x500.jpg"
+                    style="height: 200px;width: 100%;position: absolute;">
+                    <img *ngIf="current1.filename" src="http://shreddersbay.com/API/uploads/{{current1.filename}}"
+                    style="height: 200px;width: 100%;position: absolute;">
+                    <img *ngIf="!current1.filename" src="http://shreddersbay.com/API/uploads/{{current1.file}}"
+                    style="height: 200px;width: 100%;position: absolute;">
+                      <div  style="height: 200px;width: 100%;position: absolute;background-color: black;opacity: 0.3;" ></div>
+                  </ion-col>
+                </ion-row>
+
+                <div style="padding: 15px;">
+                  <!-- <ion-icon (click)="change('close')" style="float: right;color:rgb(223, 78, 78);font-size:xx-large;background-color:white;border-radius:50%;" name="close-circle"></ion-icon>  -->
+                  <ion-row style="margin-top: 10px;">
+                    <ion-col style="color: white;font-size: x-large;">{{current1.p_name}} - {{current1.name}}</ion-col>
+
+                  </ion-row>
+                  <ion-row style="margin-top: 5px;">
+                    <ion-col style="text-align: center;">
+                      <ion-button fill="default" color="medium">Auction price : Rs {{current1.total_price}}</ion-button>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+
+                    <ion-col size="1">
+                      <ion-icon style="color: white;" name="location-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col style="color: white;">{{current1.address}}</ion-col>
+                  </ion-row>
+
+                </div>
+              </div>
+            </ion-row>
+            <ion-row style="margin-top: 30px;margin-bottom: 20px;">
+
+              <ion-grid>
+                <ion-row>
+                  <ion-chip outline color="danger"
+                    style="box-shadow: rgba(241, 9, 9, 0.9) 0px 0px 5px;margin-left: auto;margin-right: auto;">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <ion-label>Closed</ion-label>
+                  </ion-chip>
+                </ion-row>
+                <ion-row style="margin-top: 20px;margin-left: 20px;">
+                  <ion-col size="2">
+                    <ion-icon name="hand-right-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col style="padding-top: 0;" (click)="auction('bid',current1.auction_id,'my-auction')">
+                    <ion-row>
+                      <ion-col size="2">
+                        <ion-badge mode="ios" color="tertiary">{{chat1[j]?.Chat }}</ion-badge>
+                      </ion-col>
+                      <ion-col>Bids</ion-col>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+                <ion-row style="margin-left: 20px;margin-top: 10px;">
+                  <ion-col size="2">
+                    <ion-icon name="chatbox-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col (click)="auction('chat',current1.auction_id,'my-auction')">0 New Messages</ion-col>
+                </ion-row>
+                <ion-row style="margin-left: 20px;margin-top: 10px;">
+                  <ion-col size="2">
+                    <ion-icon name="information-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col (click)="auction('details',current1.auction_id,'my-auction')">Auction Details</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-row>
+            <ion-row>
+              <ion-grid class="ion-no-padding">
+                <ion-row style="border-top: 1px solid gray; ">
+                  <ion-col *ngIf="chat1[j]?.NoBid=='false' && chat1[j]?.OneBid=='false'">
+                    <div style="padding: 10px;">
+                      <p style="text-align: center;">Lowest Bid</p>
+                      <ion-row style="padding-left: 20%;">
+                        <ion-col size="2">
+                          <ion-icon style="color: red;" name="caret-down-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col>{{chat1[j]?.Min}}</ion-col>
+                      </ion-row>
+
+                    </div>
+                  </ion-col>
+                  <ion-col *ngIf="chat1[j]?.NoBid=='false' && chat1[j]?.OneBid=='false'"
+                    style="border-left: 1px solid gray;">
+                    <div style="padding: 10px;">
+                      <p style="text-align: center;">Highest Bid</p>
+                      <ion-row style="padding-left: 20%">
+                        <ion-col size="2">
+                          <ion-icon style="color: green;" name="caret-up-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col>{{chat1[j]?.Max}}</ion-col>
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                  <ion-col *ngIf="chat1[j]?.NoBid=='true'">
+                    <p style="padding: 10px;text-align: center;font-size: x-large;font-weight: 900;">NO BID YET</p>
+                  </ion-col>
+                  <ion-col *ngIf="!chat1[j]?.OneBid && chat1[j]?.NoBid=='false'">
+                    {{chat1[j]?.OneBid}}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+
+            </ion-row>
+
+
+          </div>
+        </ion-col>
+        <ion-col *ngIf="show=='completed'">
+          <div style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+            <ion-row>
+              <div style="width: 100%;">
+                <ion-row>
+                  <ion-col style="padding: 0;">
+                    <img src="https://i.postimg.cc/Qt91zm1G/20210116-161739.jpg"
+                      style="height: 200px;width: 100%;position: absolute;">
+                  </ion-col>
+                </ion-row>
+
+
+                <ion-icon name="ellipsis-horizontal-outline"
+                  style="float: right;padding: 10px;color: white;font-size: xx-large;"></ion-icon>
+                <div style="padding: 20px;">
+                  <ion-row style="margin-top: 20px;">
+                    <ion-col style="color: white;font-size: x-large;">Auction Name</ion-col>
+
+                  </ion-row>
+                  <ion-row style="margin-top: 60px;">
+
+                    <ion-col size="1">
+                      <ion-icon style="color: white;" name="location-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col style="color: white;">Location</ion-col>
+                  </ion-row>
+
+                </div>
+              </div>
+            </ion-row>
+            <ion-row style="margin-top: 30px;margin-bottom: 20px;">
+
+              <ion-grid>
+                <ion-row>
+                  <ion-chip outline color="danger"
+                    style="box-shadow: rgba(241, 9, 9, 0.9) 0px 0px 5px;margin-left: auto;margin-right: auto;">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <ion-label>Completed</ion-label>
+                  </ion-chip>
+                </ion-row>
+                <ion-row style="margin-top: 20px;margin-left: 20px;">
+                  <ion-col size="2">
+                    <ion-icon name="hand-right-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col (click)="auction('bid')">3 Bids</ion-col>
+                </ion-row>
+                <ion-row style="margin-left: 20px;margin-top: 10px;">
+                  <ion-col size="2">
+                    <ion-icon name="chatbox-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col (click)="auction('chat')">0 New Messages</ion-col>
+                </ion-row>
+                <ion-row style="margin-left: 20px;margin-top: 10px;">
+                  <ion-col size="2">
+                    <ion-icon name="information-outline"></ion-icon>
+                  </ion-col>
+                  <ion-col (click)="auction('details')">Auction Details</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-row>
+            <ion-row>
+              <ion-grid class="ion-no-padding">
+                <ion-row style="border-top: 1px solid gray; ">
+                  <ion-col>
+                    <div style="padding: 10px;">
+                      <p style="text-align: center;">Lowest Bid</p>
+                      <ion-row style="padding-left: 20%;">
+                        <ion-col size="2">
+                          <ion-icon style="color: red;" name="caret-down-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col>$50</ion-col>
+                      </ion-row>
+
+                    </div>
+                  </ion-col>
+                  <ion-col style="border-left: 1px solid gray;">
+                    <div style="padding: 10px;">
+                      <p style="text-align: center;">Highest Bid</p>
+                      <ion-row style="padding-left: 20%">
+                        <ion-col size="2">
+                          <ion-icon style="color: green;" name="caret-up-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col>$450</ion-col>
+                      </ion-row>
+
+
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+
+            </ion-row>
+
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+</ion-content>

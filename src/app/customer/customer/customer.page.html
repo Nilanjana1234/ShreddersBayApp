@@ -1,0 +1,40 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <img src="../../../assets/img/logo-mini.png" height="50px" />
+    <ion-buttons slot="end" >
+      <ion-icon name="notifications" [routerLink]="['/notifications']"  class="padding-right" slot="start"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <h2>Available Scrap Types</h2>
+    <ion-item *ngIf="list==''">
+      No Record Found 
+       </ion-item>
+    <ion-row>
+      <ion-col size="6" *ngFor="let item of list" (click)="addCart()">
+        <div>
+          <img
+            src="http://shreddersbay.com/API/uploads/{{item.file}}" class="img1"/>
+        </div>
+        <ion-title >{{item.p_name}}</ion-title>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-button class="primary" shape="round">View More<ion-icon name="arrow-down"></ion-icon></ion-button> -->
+  </ion-grid>
+
+  
+</ion-content>
+<ion-footer>
+  <ion-card (click)="addCart()">
+    <ion-item>
+      <ion-icon name="cart" slot="start" color="clear"></ion-icon>
+      <ion-label>Place The Request</ion-label>
+    </ion-item>
+  </ion-card>
+</ion-footer>

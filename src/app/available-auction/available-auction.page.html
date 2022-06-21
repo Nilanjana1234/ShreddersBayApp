@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Available Auction</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-item *ngIf="orders===''">
+    No Record Found
+     </ion-item>
+  <ion-card *ngFor="let order of orders">
+    <p >Auction Id : {{order.auction_id}}</p>
+    <ion-item >
+      <ion-avatar slot="start">
+        <img src="https://infodeltasys.com/Shreddersbay/admin/upload/a.png" />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{order.name}}</h2>
+        <ion-icon name="pin"></ion-icon><span style="color: grey">{{order.address}}</span>
+      </ion-label>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+  <ion-buttons class="ion-padding" color="light" (click)="ignore(order.auction_id)">
+    <ion-icon name="close-circle-outline" color="danger" size="large"></ion-icon>
+    <ion-title class="ion-no-padding">Ignore</ion-title>
+    </ion-buttons>
+  </ion-col>
+  <ion-col>
+    <ion-buttons class="ion-padding" color="light" (click)="singleAuctionDetail(order.auction_id)">
+      <ion-title class="ion-no-padding">Details</ion-title>
+      </ion-buttons>
+    </ion-col>
+  <ion-col>
+  <ion-buttons class="ion-padding"  color="light" (click)="accept(order.auction_id)">
+    <ion-icon name="checkmark-circle-outline" color="success" size="large" ></ion-icon>
+    <ion-title class="ion-no-padding">Accept</ion-title>
+  </ion-buttons>
+    </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

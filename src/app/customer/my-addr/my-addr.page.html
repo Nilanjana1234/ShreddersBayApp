@@ -1,0 +1,54 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Address</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon *ngIf="dateTime" name="add" size="large" (click)="addAddr()"></ion-icon>
+      <ion-icon *ngIf="!dateTime" name="add" size="large" [routerLink]="['/add-address']"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+
+<!-- Custom Refresher Content -->
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <ion-list>
+    <ion-radio-group (ionChange)="address($event)">
+      <ion-item *ngIf="data==''">
+       No Record Found Please Add Your Address
+        </ion-item>
+      <ion-item *ngFor="let item of data">
+        <ion-label>HOME<br />{{ name }} <br />
+          {{ item.address }}
+        </ion-label>
+        <ion-radio *ngIf="dateTime" value="{{item.addr_id}}"></ion-radio>
+        <ion-buttons slot="end">
+          <ion-icon name="pencil" color="primary" (click)="editAddr(item.addr_id)" style="padding: 5px;cursor: pointer;"></ion-icon>
+          <ion-icon name="trash" color="danger" (click)="delAddr(item.addr_id)" style="padding: 5px;cursor: pointer;"></ion-icon>
+        </ion-buttons>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  <label class="error ion-padding" *ngIf="adderr" style="color: red;font-size: 12px;">
+    *Select one of the address
+   </label>
+</ion-content>
+<ion-button expand="block" *ngIf="dateTime" shape="round" class="login" slot="bottom" (click)="placeRequest()">Place Request
+</ion-button>
+
+
+

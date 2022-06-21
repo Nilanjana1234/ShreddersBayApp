@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">Auction Id : {{bId}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="notifications" size="large"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h3>Scrap Items</h3>
+  <ion-item *ngIf="data==''">
+    No Record Found 
+     </ion-item>
+  <ion-card *ngFor="let item of data">
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="http://shreddersbay.com/API/uploads/{{item.filename}}">
+      </ion-thumbnail>
+     <ion-grid>
+          <ion-row>
+            <ion-col size="7">
+              <ion-text>{{item.p_name}}</ion-text>
+            </ion-col>
+            <ion-col size="5">
+              <ion-text><b>{{item.approx_price | currency:'INR':true}}</b></ion-text>
+            </ion-col>
+            <ion-label color="medium">
+              <p>{{item.sub_name}}</p>
+              <ion-label color="dark">{{item.total_wieght}}.00 Kg</ion-label>
+            </ion-label>
+          </ion-row>
+        </ion-grid>
+    </ion-item>
+  </ion-card>
+  <h2>Dealer Details</h2>
+  <ion-card *ngIf="dealer_id>0">
+    <ion-title color="success" align="right">Accepted</ion-title>
+    <ion-item *ngFor="let record of dealer_record">
+      <ion-thumbnail slot="start">
+        <img *ngIf="!record.profile" alt="logo" height="150" style="margin-top: 2%;border-radius: 50%;"
+        src="../../assets/img/my-account.jpg" >
+  
+        <img *ngIf="record.profile"  height="150" style="margin-top: 2%;border-radius: 50%;"
+        src="{{filename}}" >
+      
+        <!-- <img src="../../../assests/IMG_20191219_142502.jpg"> -->
+      </ion-thumbnail>
+     
+      <ion-label>
+        <ion-title >{{ record.name }}</ion-title>
+        <ion-title >{{ record.mobile }}</ion-title>
+      </ion-label>
+    </ion-item>
+    <p style="padding: 10px;"><ion-icon name="pin" color="danger" size="large"></ion-icon>L111-LDA Colony,Near Bangla Bajaar,Ashiyana, Lucknow-226012</p>
+    <!-- <div id="chartdiv" style="width: 100%; height: 400px" ></div> -->
+  </ion-card>
+  <ion-card *ngIf="dealer_id==='0'">
+    <ion-item>
+      <ion-label>
+        <p>Your Request is under Review</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <div color="light"></div>
+  <h2>Auction Details</h2>
+  <ion-card *ngFor="let item of data">
+    <ion-item>
+      <ion-label>
+        <h3 slot="end">Schedule Date: {{item.schedule_date}}</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h3 color="medium">Auction Date: {{item.booking_date}}</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total Price: <b>{{item.total_price | currency:'INR':true}}</b></ion-label>
+    </ion-item>
+
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-button  color="primary" shape="round" expand="block" (click)="cancelBooking()">Cancel Auction</ion-button>
+</ion-footer>
+

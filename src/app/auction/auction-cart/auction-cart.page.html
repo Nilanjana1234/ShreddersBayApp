@@ -1,0 +1,66 @@
+
+<ion-content>
+  <div style="display: flex;">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="font-size: x-large;font-weight:bold">Cart Auction</ion-title>
+  </div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="data">
+    <ion-card *ngFor="let item of data">
+      <ion-item>
+        <ion-icon name="close" slot="end" (click)="removeCart(item.cart_id)" color="danger"></ion-icon>
+        <ion-thumbnail slot="start">
+          <img src="http://shreddersbay.com/API/uploads/{{item.filename}}">
+        </ion-thumbnail>
+        <ion-label>
+          {{item.p_name}} &nbsp;&nbsp;&nbsp;<span slot="end" style="font-size: 18px;"><b>{{item.price | currency:'INR':true}}</b></span><br/>
+          <p color="medium">{{item.sub_name}}</p>
+         <p>Weight {{item.total_weight}} Kg</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+
+  <ion-item *ngIf="!approxPrice" class="ion-padding ion-text-center" >
+    <div style="margin-top: 25%;">
+      <img src="../../../assets/img/cartimg.png" />
+
+      <div class="page-header">
+        <h1 >Your Cart Is Empty</h1>
+        <ion-button  type="submit" color="warning" shape="round" expand="block" (click)="plus()">Please Create Auction</ion-button>
+        </div>
+    </div>
+  </ion-item>
+
+</ion-list>
+</ion-content> 
+
+<ion-footer *ngIf="approxPrice" class="ion-padding">
+  <ion-item>
+    <ion-label style="border-bottom: 1px solid black;">Schedule Date</ion-label>
+    <ion-input   type="datetime-local" min="{{min}}" #input (change)="onChange(input.value)"  [(ngModel)]="dateTime" required></ion-input>
+  </ion-item>
+  <label class="error ion-padding" *ngIf="show" style="color: red;font-size: 12px;">
+    {{scherr}}
+   </label>
+  <ion-item>
+    <ion-label>Approx Price</ion-label>
+    <ion-title>{{approxPrice | currency:'INR':true}}</ion-title>
+  </ion-item>
+  <ion-text>*This is the approximate priceas per your input, payable amount
+    will be as per the dealer's input
+  </ion-text>
+  <ion-button type="submit"  shape="round" expand="block" (click)="addAddr()">Continue
+  </ion-button>
+</ion-footer> 
+

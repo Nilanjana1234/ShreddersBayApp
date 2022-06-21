@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">Booking Id : {{bId}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2>Scrap Items</h2>
+  <ion-card *ngFor="let item of data">
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="https://infodeltasys.com/Shreddersbay/admin/upload/{{item.filename}}">
+      </ion-thumbnail>
+     <ion-grid>
+          <ion-row> 
+            <ion-col size="7">
+              <ion-text>{{item.p_name}}</ion-text>
+            </ion-col>
+            <ion-col size="5">
+              <ion-text><b>{{item.approx_price | currency:'INR':true}}</b></ion-text>
+            </ion-col>
+            <ion-label color="medium">
+              <p>{{item.sub_name}}</p>
+              <ion-label color="dark">{{item.total_weight}}.00 Kg</ion-label>
+            </ion-label>
+          </ion-row>
+        </ion-grid>
+    </ion-item>
+  </ion-card>
+  <h2>Customer Details</h2>
+  <ion-card >
+    <ion-item *ngFor="let record of data">
+      <ion-thumbnail slot="start">
+        <img src="https://infodeltasys.com/Shreddersbay/admin/upload/IMG_20191219_142502.jpg">
+      </ion-thumbnail>
+      <ion-label>
+        <ion-title >{{ record.name }}</ion-title>
+        <ion-title >{{ record.mobile }}</ion-title>
+      </ion-label>
+    </ion-item>
+    <p style="padding: 10px;"><ion-icon name="pin" color="danger" size="large"></ion-icon>L111-LDA Colony,Near Bangla Bajaar,Ashiyana, Lucknow-226012</p>
+    <!-- <div id="chartdiv" style="width: 100%; height: 400px" ></div> -->
+  </ion-card>
+  <div color="light"></div>
+  <h2>Booking Details</h2>
+  <ion-card *ngFor="let item of data">
+    <ion-item>
+      <ion-label>
+        <h3 slot="end">Schedule Date: {{item.schedule_date}}</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h3 color="medium">Booking Date: {{item.booking_date}}</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Approx Price: <b>{{item.approx_price | currency:'INR':true}}</b></ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-button  color="success" shape="round" expand="block" (click)="delivered()">Delivered</ion-button>
+  <ion-button  color="primary" shape="round" expand="block" (click)="cancel()">Cancel Booking</ion-button>
+</ion-footer>

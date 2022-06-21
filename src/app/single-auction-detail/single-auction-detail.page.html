@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">Auction Id - {{auction_id}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="notifications" size="large"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+      <ion-card *ngFor="let item of data">
+        <ion-item>
+          <ion-label>
+            <p style="color:rgba(0,94,120,1);  font-size: 16px;  font-weight: bold;  ">
+              User Details : 
+            </p>
+            <p color="medium"> Name: {{item.name}}</p>
+            <p color="medium"> Mobile: {{item.mobile}}</p>
+            <p color="medium"> Email: {{item.email}}</p>
+            <p color="medium"> Address: {{item.address}}</p>
+            <p color="medium"> Landmark: {{item.landmark}}</p>
+            <p color="medium"> Pin code: {{item.pin_code}}</p>
+
+
+
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <p style="color:rgba(0,94,120,1);  font-size: 16px;  font-weight: bold;  ">
+              Auction Details : 
+            </p>
+            <ion-label>Auction :{{item.p_name}}</ion-label>
+            <p>{{item.sub_name}}</p>
+            <p color="medium">Product Price: {{item.price}}</p>
+            <p slot="end">Approx Price: {{item.approx_price | currency:'INR':true}}</p>
+            <p color="medium">Auction Date: {{item.booking_date}}</p>
+            <p color="medium">Auction Date: {{item.booking_date}}</p>
+            <p>Weight: {{item.total_weight}} x {{item.weight}} Kg</p>
+            <p color="medium">Auction Image: <img src="http://shreddersbay.com/API/uploads/{{item.filename}}" height="100px" width="190px"></p>
+           
+          </ion-label>
+        </ion-item>
+   </ion-card>
+
+  
+
+  
+</ion-content>

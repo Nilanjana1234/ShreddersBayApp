@@ -1,0 +1,92 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title align="center">My Auctions</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="notifications" size="large"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+<!-- Segment -->
+<ion-segment (ionChange)="segmentChanged($event)" color="secondary" [(ngModel)]="segment">
+  <ion-segment-button value="Current">
+    <ion-label color="primary">Current</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Complete">
+    <ion-label color="success">Complete</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Cancel">
+    <ion-label color="danger">Cancel</ion-label>
+  </ion-segment-button>
+</ion-segment>
+<ion-content >
+
+
+
+  <div [ngSwitch]="segment">
+    <div *ngSwitchCase="'Current'">
+      <ion-item *ngIf="currentOrder==''">
+        No Record Found 
+         </ion-item>
+      <ion-card *ngFor="let item of currentOrder" (click)="showBookingDetails(item.auction_id)">
+        <ion-item>
+          <ion-buttons *ngIf="item.dealer_id>0" slot="end">
+            <ion-icon name="checkmark"  color="success" size="large"></ion-icon>
+          </ion-buttons>
+          <ion-label>
+            <h2><b>Auction Id: {{item.auction_id}}</b></h2>
+            <ion-label>{{item.p_name}}</ion-label>
+            <p>{{item.sub_name}}</p>
+            <p slot="end">Approx Price: {{item.approx_price | currency:'INR':true}}</p>
+            <p color="medium">Auction Date: {{item.booking_date}}</p>
+            <p color="medium">Schedule Date: {{item.schedule_date}}</p>
+            <p>Weight: {{item.total_weight}} x {{item.weight}} Kg</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+
+    <div *ngSwitchCase="'Complete'">
+      <ion-item *ngIf="compOrder==''">
+        No Record Found 
+         </ion-item>
+      <ion-card *ngFor="let item of compOrder" (click)="showBookingDetails(item.auction_id)">
+        <ion-item>
+          <ion-label>
+            <h2><b>Auction Id: {{item.auction_id}}</b></h2>
+            <ion-label>{{item.p_name}}</ion-label>
+            <p>{{item.sub_name}}</p>
+            <p slot="end">Approx Price: {{item.approx_price | currency:'INR':true}}</p>
+            <p color="medium">Auction Date: {{item.booking_date}}</p>
+            <p color="medium">Schedule Date: {{item.schedule_date}}</p>
+            <p>Weight: {{item.total_weight}} x {{item.weight}} Kg</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+      
+    </div>
+
+    <div *ngSwitchCase="'Cancel'">
+      <ion-item *ngIf="cancelOrder==''">
+        No Record Found 
+         </ion-item>
+      <ion-card *ngFor="let item of cancelOrder">
+        <ion-item>
+          <ion-label>
+            <h2><b>Auction Id: {{item.auction_id}}</b></h2>
+            <ion-label>{{item.p_name}}</ion-label>
+            <p>{{item.sub_name}}</p>
+            <p slot="end">Approx Price: {{item.approx_price | currency:'INR':true}}</p>
+            <p color="medium">Auction Date: {{item.booking_date}}</p>
+            <p color="medium">Schedule Date: {{item.schedule_date}}</p>
+            <p>Weight: {{item.total_weight}} x {{item.weight}} Kg</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
+
+</ion-content>

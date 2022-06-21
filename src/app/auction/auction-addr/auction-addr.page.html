@@ -1,0 +1,106 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Address</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon *ngIf="dateTime" name="add" size="large" (click)="addAddr()"></ion-icon>
+      <ion-icon *ngIf="!dateTime" name="add" size="large" [routerLink]="['auction-home/auction-add-addr']"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+<ion-content>
+ 
+<!-- Custom Refresher Content -->
+
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content
+    pullingIcon="chevron-down-circle-outline"
+    pullingText="Pull to refresh"
+    refreshingSpinner="circles"
+    refreshingText="Refreshing...">
+  </ion-refresher-content>
+</ion-refresher>
+
+
+<ion-list>
+  <ion-radio-group (ionChange)="address($event)">
+    <ion-item *ngIf="data==''">
+     No Record Found Please Add Your Address
+      </ion-item>
+    <ion-item *ngFor="let item of data;let i = index">
+      <ion-label>Addres {{i+1}} <br />
+        {{ item.address }}<br /> {{item.city_name}}, {{item.pin_code}} <br />
+      </ion-label>
+      <ion-radio *ngIf="dateTime" (click)="viewGetAddr()" value="{{item.addr_id}}"></ion-radio>
+      <ion-buttons slot="end">
+        <ion-icon name="pencil" color="primary" (click)="editAddr(item.addr_id)" style="padding: 5px;cursor: pointer;"></ion-icon>
+        <ion-icon name="trash" color="danger" (click)="delAddr(item.addr_id)" style="padding: 5px;cursor: pointer;"></ion-icon>
+      </ion-buttons>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
+<label class="error ion-padding" *ngIf="adderr" style="color: red;font-size: 14px;font-weight: bolder;">
+  *Select one of the address
+ </label>
+ <label class="error ion-padding" *ngIf="naddr_id" style="color: green;font-size: 14px;font-weight: bolder;">
+  {{naddr_id}}
+ </label>
+ <ion-row style="padding: 10px;">
+  <ion-col *ngIf="file" >
+    <div  style="width: 100px;height: 100px;">
+      
+        <img style="width: 100%;height: 100%;border-radius: 50%;box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.3);"  src="http://shreddersbay.com/API/uploads/{{file}}">
+      
+    </div>
+  </ion-col>
+   <ion-col  style="text-align: center;margin-top: auto;margin-bottom: auto;">
+    <ion-button  *ngIf="dateTime" color="secondary"  (click)="viewOrder()">View Order detail</ion-button>
+   </ion-col>
+ </ion-row>
+ 
+ <ion-card *ngIf="view">
+   <ion-card-header style="background-color: gray;">
+     <ion-card-title style="color: white;text-align: center;">
+       Order Details
+     </ion-card-title>
+   </ion-card-header>
+   <ion-card-content>
+<div *ngFor="let i of data2">
+  <ion-row>
+    <ion-col size="5" style="font-size: larger;font-weight: bolder;color: black;">Auction Name</ion-col><ion-col >{{i.p_name}} {{ i.sub_name}}</ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col size="5" style="font-size: larger;font-weight: bolder;color: black;">weight</ion-col><ion-col>{{i.total_weight}} kg</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="5" style="font-size: larger;font-weight: bolder;color: black;">Price</ion-col><ion-col>Rs {{i.price}}/kg</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="5" style="font-size: larger;font-weight: bolder;color: black;">Address</ion-col><ion-col>{{addressname}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="5" style="font-size: larger;font-weight: bolder;color: black;">End Date</ion-col><ion-col>{{dateTime}}</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col style="text-align: center;">
+      <ion-chip color="danger" outline>
+        <ion-label style="font-size: larger;font-weight: bolder;">Minimum Price : {{i.total_price}}</ion-label>
+      </ion-chip>
+    </ion-col>
+  </ion-row>
+</div>
+   
+
+
+<ion-button expand="block" size="large" color="primary" *ngIf="dateTime" shape="round" class="login" slot="bottom" (click)="placeRequest()">Place Request
+</ion-button>
+
+   </ion-card-content>
+ </ion-card>
+</ion-content>
